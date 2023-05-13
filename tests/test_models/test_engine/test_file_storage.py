@@ -33,7 +33,11 @@ class TestFileStorage(unittest.TestCase):
     def teardown(self):
         try:
             os.remove("file.json")
+<<<<<<< HEAD
         except user:
+=======
+        except Exception:
+>>>>>>> a4772fbfeb7a8e455f7d9006eb1aafdf9eee9469
             pass
 
     def test_style_check(self):
@@ -75,7 +79,11 @@ class TestFileStorage(unittest.TestCase):
         a_storage = FileStorage()
         try:
             os.remove("file.json")
+<<<<<<< HEAD
         except user:
+=======
+        except Exception:
+>>>>>>> a4772fbfeb7a8e455f7d9006eb1aafdf9eee9469
             pass
         with open("file.json", "w") as f:
             f.write("{}")
