@@ -1,91 +1,55 @@
 #!/usr/bin/python3
-'''File Storage'''
+"""
+Module file_storage serializes and
+deserializes JSON types
+"""
+
 import json
 from models.base_model import BaseModel
 from models.user import User
-from models.state import State
-from models.city import City
-from models.amenity import Amenity
-from models.place import Place
-from models.review import Review
 
 
 class FileStorage:
-    '''serializes and deserialzes json files'''
+    """
+    Custom class for file storage
+    """
 
-    __file_path = 'file.json'
+    __file_path = "file.json"
     __objects = {}
-    class_dict = {"BaseModel": BaseModel, "User": User, "Place": Place,
-                  "Amenity": Amenity, "City": City, "Review": Review,
-                  "State": State}
-    return classes
 
     def all(self):
-        '''Return dictionary of <class>.<id> : object instance'''
+        """
+        Returns dictionary representation of all objects
+        """
         return self.__objects
 
-    def new(self, obj):
-        '''Add new obj to existing dictionary of instances'''
-        if obj:
-            key = '{}.{}'.format(obj.__class__.__name__, obj.id)
-            self.__objects[key] = obj
+    def new(self, object):
+        """sets in __objects the object with the key
+        <object class name>.id
+        Args:
+            object(obj): object to write
+        """
+        self.__objects[object.__class__.__name__ + '.' + str(object)] = object
 
     def save(self):
-        '''Save obj dictionaries to json file'''
-        my_dict = {}
-
-        for key, obj in self.__objects.items():
-            '''if type(obj) is dict:
-            my_dict[key] = obj
-            else:'''
-            my_dict[key] = obj.to_dict()
-        with open(self.__file_path, 'w') as f:
-            json.dump(my_dict, f)
+        """
+        serializes __objects to the JSON file
+        (path: __file_path)
+        """
+        with open(self.__file_path, 'w+') as f:
+            json.dump({k: v.to_dict() for k, v in self.__objects.items()
+                       }, f)
 
     def reload(self):
-        '''If json file exists, convert obj dicts back to instances'''
+        """
+        deserializes the JSON file to __objects, if the JSON
+        file exists, otherwise nothing happens)
+        """
         try:
             with open(self.__file_path, 'r') as f:
-                new_obj = json.load(f)
-            for key, val in new_obj.items():
-                obj = self.class_dict[val['__class__']](**val)
-                self.__objects[key] = obj
-        except FileNotFoundError:
+                dict = json.loads(f.read())
+                for value in dict.values():
+                    cls = value["__class__"]
+                    self.new(eval(cls)(**value))
+        except Exception:
             pass
-    def attributes(self):
-        """Returns the valid attributes and their types for classname"""
-        attributes = {
-            "BaseModel":
-                     {"id": str,
-                      "created_at": datetime.datetime,
-                      "updated_at": datetime.datetime},
-            "User":
-                     {"email": str,
-                      "password": str,
-                      "first_name": str,
-                      "last_name": str},
-            "State":
-                     {"name": str},
-            "City":
-                     {"state_id": str,
-                      "name": str},
-            "Amenity":
-                     {"name": str},
-            "Place":
-                     {"city_id": str,
-                      "user_id": str,
-                      "name": str,
-                      "description": str,
-                      "number_rooms": int,
-                      "number_bathrooms": int,
-                      "max_guest": int,
-                      "price_by_night": int,
-                      "latitude": float,
-                      "longitude": float,
-                      "amenity_ids": list},
-            "Review":
-            {"place_id": str,
-                         "user_id": str,
-                         "text": str}
-        }
-        return attributes
