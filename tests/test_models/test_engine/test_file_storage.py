@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Unittest to test FileStorage class
+Running Unittest to test FileStorage class
 """
 import unittest
 import pep8
@@ -17,7 +17,7 @@ from models.engine.file_storage import FileStorage
 
 
 class TestFileStorage(unittest.TestCase):
-    '''testing file storage'''
+    """code for testing file storage"""
 
     @classmethod
     def setUpClass(cls):
@@ -33,12 +33,12 @@ class TestFileStorage(unittest.TestCase):
     def teardown(self):
         try:
             os.remove("file.json")
-        except:
+        except user:
             pass
 
     def test_style_check(self):
         """
-        Tests pep8 style
+        Testing pep8 style
         """
         style = pep8.StyleGuide(quiet=True)
         p = style.check_files(['models/engine/file_storage.py'])
@@ -46,7 +46,7 @@ class TestFileStorage(unittest.TestCase):
 
     def test_all(self):
         """
-        Tests method: all (returns dictionary <class>.<id> : <obj instance>)
+        Testing method: all (returns dictionary <class>.<id> : <obj instance>)
         """
         storage = FileStorage()
         instances_dic = storage.all()
@@ -56,26 +56,26 @@ class TestFileStorage(unittest.TestCase):
 
     def test_new(self):
         """
-        Tests method: new (saves new object into dictionary)
+        Testing method: new (saves new object into dictionary)
         """
         m_storage = FileStorage()
         instances_dic = m_storage.all()
-        melissa = User()
-        melissa.id = 999999
-        melissa.name = "Melissa"
-        m_storage.new(melissa)
-        key = melissa.__class__.__name__ + "." + str(melissa.id)
-        #print(instances_dic[key])
+        mebel = User()
+        mebel.id = 999999
+        mebel.name = "Mebel"
+        m_storage.new(mebel)
+        key = mebel.__class__.__name__ + "." + str(mebel.id)
+        # print(instances_dic[key])
         self.assertIsNotNone(instances_dic[key])
 
     def test_reload(self):
         """
-        Tests method: reload (reloads objects from string file)
+        Testing method: reload (reloads objects from string file)
         """
         a_storage = FileStorage()
         try:
             os.remove("file.json")
-        except:
+        except user:
             pass
         with open("file.json", "w") as f:
             f.write("{}")
