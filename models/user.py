@@ -1,14 +1,21 @@
 #!/usr/bin/python3
-"""user class
 """
-
+Defines class User
+"""
 from models.base_model import BaseModel
-import json
 
 
 class User(BaseModel):
-    '''base model class'''
+    """Representation of a user
 
+
+    Attributes:
+        email(str): user email
+        password(str): user password
+        first_name(str): first name
+        last_name(str): last name
+
+    """
     email = ""
     password = ""
     first_name = ""

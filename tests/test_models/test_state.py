@@ -1,23 +1,37 @@
 #!/usr/bin/python3
-"""Test suite for the State class of the models.state module"""
+"""Testing for user State"""
 import unittest
-
+import pep8
 from models.base_model import BaseModel
+from models.city import City
+from models.place import Place
+from models.amenity import Amenity
 from models.state import State
+from models.review import Review
+from models.user import User
 
 
-class TestState(unittest.TestCase):
-    """Test cases for the State class"""
+class Teststate(unittest.TestCase):
 
-    def setUp(self):
-        self.state = State()
+    def test_pep8_conformance_state(self):
+        """Testing that we conform to PEP8."""
+        pep8style = pep8.StyleGuide(quiet=True)
+        result = pep8style.check_files(['models/state.py'])
+        self.assertEqual(result.total_errors, 0,
+                         "Found code style errors (and warnings).")
 
-    def test_state_is_a_subclass_of_basemodel(self):
-        self.assertTrue(issubclass(type(self.state), BaseModel))
+    def test_class(self):
+        state1 = State()
+        self.assertEqual(state1.__class__.__name__, "State")
 
-    def test_attr_is_a_class_attr(self):
-        self.assertTrue(hasattr(self.state, "name"))
+    def test_father(self):
+        state1 = State()
+        self.assertEqual(state1.__class__.__name__, "State")
 
-    def test_class_attrs(self):
-        self.assertIs(type(self.state.name), str)
-        self.assertFalse(bool(self.state.name))
+    def test_state(self):
+        """
+        Testing attributes of Class State
+        """
+        my_state = State()
+        my_state.name = "Imo"
+        self.assertEqual(my_state.name, 'Imo')

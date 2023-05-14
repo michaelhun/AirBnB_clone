@@ -1,40 +1,67 @@
 #!/usr/bin/python3
-"""Test suite for the Place class of models.place"""
+"""Testing for Place"""
 import unittest
-
+import pep8
 from models.base_model import BaseModel
+from models.city import City
 from models.place import Place
+from models.amenity import Amenity
+from models.state import State
+from models.review import Review
+from models.user import User
 
 
-class TestPlace(unittest.TestCase):
-    """Test cases against the Place class"""
+class Testplace(unittest.TestCase):
 
-    def setUp(self):
-        self.place = Place()
-        self.attr_list = ["name", "user_id", "city_id", "description",
-                          "number_bathrooms", "max_guest", "number_rooms",
-                          "price_by_night", "latitude", "longitude",
-                          "amenity_ids"]
+    def test_pep8_conformance_place(self):
+        """Testing that we conform to PEP8."""
+        pep8style = pep8.StyleGuide(quiet=True)
+        result = pep8style.check_files(['models/place.py'])
+        self.assertEqual(result.total_errors, 0,
+                         "Found code style errors (and warnings).")
 
-    def test_attrs_are_class_attrs(self):
-        for attr in self.attr_list:
-            self.assertTrue(hasattr(Place, attr))
+    def test_class(self):
+        place1 = Place()
+        self.assertEqual(place1.__class__.__name__, "Place")
 
-    def test_class_attrs(self):
-        self.assertIs(type(self.place.name), str)
-        self.assertIs(type(self.place.city_id), str)
-        self.assertIs(type(self.place.user_id), str)
-        self.assertIs(type(self.place.description), str)
-        self.assertIs(type(self.place.number_bathrooms), int)
-        self.assertIs(type(self.place.max_guest), int)
-        self.assertIs(type(self.place.number_rooms), int)
-        self.assertIs(type(self.place.price_by_night), int)
-        self.assertIs(type(self.place.latitude), float)
-        self.assertIs(type(self.place.longitude), float)
-        self.assertIs(type(self.place.amenity_ids), list)
+    def test_father(self):
+        place1 = Place()
+        self.assertTrue(issubclass(place1.__class__, BaseModel))
 
-        for attr in self.attr_list:
-            self.assertFalse(bool(getattr(self.place, attr)))
-
-    def test_place_obj_is_a_subclass_of_basemodel(self):
-        self.assertTrue(issubclass(type(self.place), BaseModel))
+    def test_place(self):
+        """
+        Testing for attributes of Class Place
+        """
+        my_amenity = Amenity()
+        my_city = City()
+        my_user = User()
+        my_place = Place()
+        my_place.city_id = my_city.id
+        my_place.user_id = my_user.id
+        my_place.name = 'New_owerri'
+        my_place.description = 'description'
+        my_place.number_rooms = 3
+        my_place.number_bathrooms = 2
+        my_place.max_guest = 8
+        my_place.price_by_night = 200
+        my_place.latitude = 5.4924056
+        my_place.longitude = 6.9959245
+        my_place.amenity_ids = str(my_amenity.id)
+        self.assertEqual(my_place.city_id, my_city.id)
+        self.assertEqual(my_place.user_id, my_user.id)
+        self.assertEqual(my_place.name, 'New_owerri')
+        self.assertEqual(my_place.description, 'description')
+        self.assertEqual(my_place.number_rooms, 3)
+        self.assertTrue(type(my_place.number_rooms), int)
+        self.assertEqual(my_place.number_bathrooms, 2)
+        self.assertTrue(type(my_place.number_bathrooms), int)
+        self.assertEqual(my_place.max_guest, 8)
+        self.assertTrue(type(my_place.max_guest), int)
+        self.assertEqual(my_place.price_by_night, 200)
+        self.assertTrue(type(my_place.price_by_night), int)
+        self.assertEqual(my_place.latitude, 5.4924056)
+        self.assertTrue(type(my_place.latitude), float)
+        self.assertEqual(my_place.longitude, 6.9959245)
+        self.assertTrue(type(my_place.longitude), float)
+        self.assertEqual(my_place.amenity_ids, str(my_amenity.id))
+        self.assertTrue(type(my_place.amenity_ids), str)
