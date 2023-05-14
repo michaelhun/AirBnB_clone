@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Testing for City"""
+"""Test City"""
 import unittest
 import pep8
 from models.base_model import BaseModel
@@ -34,7 +34,7 @@ class Testcity(unittest.TestCase):
         """
         my_city = City()
         my_state = State()
-        my_city.name = "Owerri"
+        my_city.name = "Abuja"
         my_city.state_id = my_state.id
-        self.assertEqual(my_city.name, 'Owerri')
+        self.assertEqual(my_city.name, 'Abuja')
         self.assertEqual(my_city.state_id, my_state.id)

@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Testing for Review"""
+"""Test Review"""
 import unittest
 import pep8
 from models.base_model import BaseModel
@@ -14,7 +14,7 @@ from models.user import User
 class Testreview(unittest.TestCase):
 
     def test_pep8_conformance_review(self):
-        """Testing that we conform to PEP8."""
+        """Test that we conform to PEP8."""
         pep8style = pep8.StyleGuide(quiet=True)
         result = pep8style.check_files(['models/review.py'])
         self.assertEqual(result.total_errors, 0,
@@ -30,14 +30,14 @@ class Testreview(unittest.TestCase):
 
     def test_review(self):
         """
-        Testing for review
+        Test review
         """
         my_place = Place()
         my_user = User()
         my_review = Review()
         my_review.place_id = my_place.id
         my_review.user_id = my_user.id
-        my_review.text = 'ALX'
+        my_review.text = 'holberton'
         self.assertEqual(my_review.place_id, my_place.id)
         self.assertEqual(my_review.user_id, my_user.id)
-        self.assertEqual(my_review.text, 'ALX')
+        self.assertEqual(my_review.text, 'holberton')

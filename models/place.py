@@ -1,11 +1,10 @@
-#!/usr/bin/python3
-"""Contains the Place model"""
+#!/usr/bin/python
+""" holds class Place"""
 from models.base_model import BaseModel
 
 
 class Place(BaseModel):
-
-    """Implements the Place model """
+    """Representation of state"""
     city_id = ""
     user_id = ""
     name = ""

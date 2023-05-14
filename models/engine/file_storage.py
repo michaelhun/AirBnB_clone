@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Module for file_storage serializes and
+Module file_storage serializes and
 deserializes JSON types
 """
 
@@ -11,7 +11,7 @@ from models.user import User
 
 class FileStorage:
     """
-    Custom class used for file storage
+    Custom class for file storage
     """
 
     __file_path = "file.json"
@@ -19,12 +19,12 @@ class FileStorage:
 
     def all(self):
         """
-        Code Returns dictionary representation of all objects
+        Returns dictionary representation of all objects
         """
         return self.__objects
 
     def new(self, object):
-        """Code sets in __objects the object with the key
+        """sets in __objects the object with the key
         <object class name>.id
         Args:
             object(obj): object to write

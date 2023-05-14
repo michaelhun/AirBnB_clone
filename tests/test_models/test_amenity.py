@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Testing Amenity"""
+"""Test Amenity"""
 import unittest
 import pep8
 from models.base_model import BaseModel
@@ -30,5 +30,5 @@ class Testamenity(unittest.TestCase):
     def test_amenity(self):
         """Test attributes of Class Amenity"""
         my_amenity = Amenity()
-        my_amenity.name = "Tiger_generator"
-        self.assertEqual(my_amenity.name, 'Tiger_generator')
+        my_amenity.name = "Wi-Fi"
+        self.assertEqual(my_amenity.name, 'Wi-Fi')

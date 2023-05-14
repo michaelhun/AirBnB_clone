@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""This is the console for the AirBnB project"""
+"""This is the console for AirBnB"""
 import cmd
 from models import storage
 from datetime import datetime
@@ -14,7 +14,7 @@ from shlex import split
 
 
 class HBNBCommand(cmd.Cmd):
-    """this class is an entry point of the command interpreter
+    """this class is entry point of the command interpreter
     """
     prompt = "(hbnb) "
     all_classes = {"BaseModel", "User", "State", "City",
@@ -25,11 +25,11 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_quit(self, line):
-        """Quiting command to exit the program"""
+        """Quit command to exit the program"""
         return True
 
     def do_EOF(self, line):
-        """Quiting command to exit the program at end of file"""
+        """Quit command to exit the program at end of file"""
         return True
 
     def do_create(self, line):
@@ -57,7 +57,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
 
     def do_show(self, line):
-        """Code that Prints the string representation of an instance
+        """Prints the string representation of an instance
         Exceptions:
             SyntaxError: when there is no args given
             NameError: when there is no object taht has the name
@@ -88,7 +88,7 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
 
     def do_destroy(self, line):
-        """Code that Deletes an instance based on the class name and id
+        """Deletes an instance based on the class name and id
         Exceptions:
             SyntaxError: when there is no args given
             NameError: when there is no object taht has the name
@@ -144,7 +144,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
 
     def do_update(self, line):
-        """Code that Updates an instanceby adding or updating attribute
+        """Updates an instanceby adding or updating attribute
         Exceptions:
             SyntaxError: when there is no args given
             NameError: when there is no object taht has the name
@@ -189,7 +189,7 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
 
     def count(self, line):
-        """Code that counts the number of instances of a class
+        """count the number of instances of a class
         """
         counter = 0
         try:
@@ -229,7 +229,7 @@ class HBNBCommand(cmd.Cmd):
         return " ".join(i for i in new_list)
 
     def default(self, line):
-        """Code that retrieves all instances of a class and
+        """retrieve all instances of a class and
         retrieve the number of instances
         """
         my_list = line.split('.')

@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Testing for user State"""
+"""Test State"""
 import unittest
 import pep8
 from models.base_model import BaseModel
@@ -14,7 +14,7 @@ from models.user import User
 class Teststate(unittest.TestCase):
 
     def test_pep8_conformance_state(self):
-        """Testing that we conform to PEP8."""
+        """Test that we conform to PEP8."""
         pep8style = pep8.StyleGuide(quiet=True)
         result = pep8style.check_files(['models/state.py'])
         self.assertEqual(result.total_errors, 0,
@@ -30,8 +30,8 @@ class Teststate(unittest.TestCase):
 
     def test_state(self):
         """
-        Testing attributes of Class State
+        Test attributes of Class State
         """
         my_state = State()
-        my_state.name = "Imo"
-        self.assertEqual(my_state.name, 'Imo')
+        my_state.name = "Lagos"
+        self.assertEqual(my_state.name, 'Lagos')
