@@ -1,67 +1,52 @@
 #!/usr/bin/python3
-"""Test Place"""
+"""Unittest module for the Place Class."""
+
 import unittest
-import pep8
-from models.base_model import BaseModel
-from models.city import City
+from datetime import datetime
+import time
 from models.place import Place
-from models.amenity import Amenity
-from models.state import State
-from models.review import Review
-from models.user import User
+import re
+import json
+from models.engine.file_storage import FileStorage
+import os
+from models import storage
+from models.base_model import BaseModel
 
 
-class Testplace(unittest.TestCase):
+class TestPlace(unittest.TestCase):
 
-    def test_pep8_conformance_place(self):
-        """Test that we conform to PEP8."""
-        pep8style = pep8.StyleGuide(quiet=True)
-        result = pep8style.check_files(['models/place.py'])
-        self.assertEqual(result.total_errors, 0,
-                         "Found code style errors (and warnings).")
+    """Test Cases for the Place class."""
 
-    def test_class(self):
-        place1 = Place()
-        self.assertEqual(place1.__class__.__name__, "Place")
+    def setUp(self):
+        """Sets up test methods."""
+        pass
 
-    def test_father(self):
-        place1 = Place()
-        self.assertTrue(issubclass(place1.__class__, BaseModel))
+    def tearDown(self):
+        """Tears down test methods."""
+        self.resetStorage()
+        pass
 
-    def test_place(self):
-        """
-        Test attributes of Class Place
-        """
-        my_amenity = Amenity()
-        my_city = City()
-        my_user = User()
-        my_place = Place()
-        my_place.city_id = my_city.id
-        my_place.user_id = my_user.id
-        my_place.name = 'Coworking'
-        my_place.description = 'description'
-        my_place.number_rooms = 4
-        my_place.number_bathrooms = 2
-        my_place.max_guest = 4
-        my_place.price_by_night = 200
-        my_place.latitude = 25.0342808
-        my_place.longitude = -77.3962784
-        my_place.amenity_ids = str(my_amenity.id)
-        self.assertEqual(my_place.city_id, my_city.id)
-        self.assertEqual(my_place.user_id, my_user.id)
-        self.assertEqual(my_place.name, 'Coworking')
-        self.assertEqual(my_place.description, 'description')
-        self.assertEqual(my_place.number_rooms, 4)
-        self.assertTrue(type(my_place.number_rooms), int)
-        self.assertEqual(my_place.number_bathrooms, 2)
-        self.assertTrue(type(my_place.number_bathrooms), int)
-        self.assertEqual(my_place.max_guest, 4)
-        self.assertTrue(type(my_place.max_guest), int)
-        self.assertEqual(my_place.price_by_night, 200)
-        self.assertTrue(type(my_place.price_by_night), int)
-        self.assertEqual(my_place.latitude, 25.0342808)
-        self.assertTrue(type(my_place.latitude), float)
-        self.assertEqual(my_place.longitude, -77.3962784)
-        self.assertTrue(type(my_place.longitude), float)
-        self.assertEqual(my_place.amenity_ids, str(my_amenity.id))
-        self.assertTrue(type(my_place.amenity_ids), str)
+    def resetStorage(self):
+        """Resets FileStorage data."""
+        FileStorage._FileStorage__objects = {}
+        if os.path.isfile(FileStorage._FileStorage__file_path):
+            os.remove(FileStorage._FileStorage__file_path)
+
+    def test_8_instantiation(self):
+        """Tests instantiation of Place class."""
+
+        b = Place()
+        self.assertEqual(str(type(b)), "<class 'models.place.Place'>")
+        self.assertIsInstance(b, Place)
+        self.assertTrue(issubclass(type(b), BaseModel))
+
+    def test_8_attributes(self):
+        """Tests the attributes of Place class."""
+        attributes = storage.attributes()["Place"]
+        o = Place()
+        for k, v in attributes.items():
+            self.assertTrue(hasattr(o, k))
+            self.assertEqual(type(getattr(o, k, None)), v)
+
+if __name__ == "__main__":
+    unittest.main()

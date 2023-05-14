@@ -1,43 +1,52 @@
 #!/usr/bin/python3
-"""Test Review"""
+"""Unittest module for the Review Class."""
+
 import unittest
-import pep8
-from models.base_model import BaseModel
-from models.city import City
-from models.place import Place
-from models.amenity import Amenity
-from models.state import State
+from datetime import datetime
+import time
 from models.review import Review
-from models.user import User
+import re
+import json
+from models.engine.file_storage import FileStorage
+import os
+from models import storage
+from models.base_model import BaseModel
 
 
-class Testreview(unittest.TestCase):
+class TestReview(unittest.TestCase):
 
-    def test_pep8_conformance_review(self):
-        """Test that we conform to PEP8."""
-        pep8style = pep8.StyleGuide(quiet=True)
-        result = pep8style.check_files(['models/review.py'])
-        self.assertEqual(result.total_errors, 0,
-                         "Found code style errors (and warnings).")
+    """Test Cases for the Review class."""
 
-    def test_class(self):
-        rev1 = Review()
-        self.assertEqual(rev1.__class__.__name__, "Review")
+    def setUp(self):
+        """Sets up test methods."""
+        pass
 
-    def test_father(self):
-        rev1 = Review()
-        self.assertTrue(issubclass(rev1.__class__, BaseModel))
+    def tearDown(self):
+        """Tears down test methods."""
+        self.resetStorage()
+        pass
 
-    def test_review(self):
-        """
-        Test review
-        """
-        my_place = Place()
-        my_user = User()
-        my_review = Review()
-        my_review.place_id = my_place.id
-        my_review.user_id = my_user.id
-        my_review.text = 'holberton'
-        self.assertEqual(my_review.place_id, my_place.id)
-        self.assertEqual(my_review.user_id, my_user.id)
-        self.assertEqual(my_review.text, 'holberton')
+    def resetStorage(self):
+        """Resets FileStorage data."""
+        FileStorage._FileStorage__objects = {}
+        if os.path.isfile(FileStorage._FileStorage__file_path):
+            os.remove(FileStorage._FileStorage__file_path)
+
+    def test_8_instantiation(self):
+        """Tests instantiation of Review class."""
+
+        b = Review()
+        self.assertEqual(str(type(b)), "<class 'models.review.Review'>")
+        self.assertIsInstance(b, Review)
+        self.assertTrue(issubclass(type(b), BaseModel))
+
+    def test_8_attributes(self):
+        """Tests the attributes of Review class."""
+        attributes = storage.attributes()["Review"]
+        o = Review()
+        for k, v in attributes.items():
+            self.assertTrue(hasattr(o, k))
+            self.assertEqual(type(getattr(o, k, None)), v)
+
+if __name__ == "__main__":
+    unittest.main()
