@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Unittest module for the User Class."""
+"""Running Unittest module for the User Class."""
 
 import unittest
 from datetime import datetime
@@ -15,7 +15,7 @@ from models.base_model import BaseModel
 
 class TestUser(unittest.TestCase):
 
-    """Test Cases for the User class."""
+    """Test for Cases for the User class."""
 
     def setUp(self):
         """Sets up test methods."""
